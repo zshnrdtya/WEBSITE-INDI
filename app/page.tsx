@@ -7,6 +7,7 @@ import AboutSection from "@/components/AboutSection";
 import CoreMissionSection from "@/components/CoreMissionSection";
 import HowWeHelpSection from "@/components/HowWeHelpSection";
 import OurExperiencesSection from "@/components/OurExperiencesSection";
+import OurCredentialSection from "@/components/OurCredentialSection";
 
 export default function Home() {
   return (
@@ -33,6 +34,7 @@ export default function Home() {
       <CoreMissionSection />
       <HowWeHelpSection />
       <OurExperiencesSection />
+      <OurCredentialSection />
     </div>
   );
 }

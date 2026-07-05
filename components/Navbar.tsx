@@ -6,38 +6,54 @@ import { useState } from "react";
 export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
-  const scrollToAbout = () => {
-    const aboutSection = document.getElementById('about-indi');
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      const yOffset = -80; // Offset untuk navbar
+      const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      
+      window.scrollTo({
+        top: y,
+        behavior: 'smooth'
+      });
+      
+      setActiveDropdown(null); // Close dropdown after click
     }
+  };
+
+  const scrollToAbout = () => {
+    scrollToSection('about-indi');
+  };
+
+  const scrollToCredential = () => {
+    scrollToSection('our-credential');
   };
 
   const menuItems = {
     knowledgeSharing: {
       label: "Knowledge Sharing",
       items: [
-        "INSIGHTS",
-        "TECH STACK",
-        "ACHIEVEMENT & CERTIFICATION"
+        { text: "INSIGHTS", action: null },
+        { text: "TECH STACK", action: null },
+        { text: "ACHIEVEMENT & CERTIFICATION", action: null }
       ]
     },
     informasi: {
       label: "Informasi",
       items: [
-        "FAQ",
-        "INDUSTRI & PARTNERS",
-        "OUR EXPERIENCES",
-        "THOUGHT LEADERSHIP",
-        "Talent Incubation & Client Onboarding"
+        { text: "FAQ", action: null },
+        { text: "INDUSTRI & PARTNERS", action: scrollToCredential },
+        { text: "OUR EXPERIENCES", action: null },
+        { text: "THOUGHT LEADERSHIP", action: null },
+        { text: "Talent Incubation & Client Onboarding", action: null }
       ]
     },
     services: {
       label: "Services",
       items: [
-        "TECHNOLOGY SOLUTIONS",
-        "INNOVATION DEVELOPMENT",
-        "TALENT DEVELOPMENT"
+        { text: "TECHNOLOGY SOLUTIONS", action: null },
+        { text: "INNOVATION DEVELOPMENT", action: null },
+        { text: "TALENT DEVELOPMENT", action: null }
       ]
     }
   };
@@ -70,11 +86,19 @@ export default function Navbar() {
 
             {/* Knowledge Sharing Dropdown - seperti design */}
             <li 
-              className="relative cursor-pointer text-white/90 hover:text-white transition-colors"
+              className="relative cursor-pointer text-white/90 hover:text-white transition-colors flex items-center gap-1"
               onMouseEnter={() => setActiveDropdown('knowledgeSharing')}
               onMouseLeave={() => setActiveDropdown(null)}
             >
-              {menuItems.knowledgeSharing.label}
+              <span>{menuItems.knowledgeSharing.label}</span>
+              <svg 
+                className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'knowledgeSharing' ? 'rotate-180' : ''}`}
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
               {activeDropdown === 'knowledgeSharing' && (
                 <div 
                   className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-50"
@@ -83,8 +107,12 @@ export default function Navbar() {
                 >
                   <div className="bg-[#6B9EDE]/95 backdrop-blur-md rounded-2xl py-4 px-6 shadow-xl w-max">
                     {menuItems.knowledgeSharing.items.map((item, idx) => (
-                      <div key={idx} className="px-3 py-2.5 hover:bg-[#012267] transition-colors rounded-lg text-white text-sm font-rubik cursor-pointer whitespace-nowrap">
-                        {item}
+                      <div 
+                        key={idx} 
+                        className="px-3 py-2.5 hover:bg-[#012267] transition-colors rounded-lg text-white text-sm font-rubik cursor-pointer whitespace-nowrap"
+                        onClick={item.action || undefined}
+                      >
+                        {item.text}
                       </div>
                     ))}
                   </div>
@@ -94,11 +122,19 @@ export default function Navbar() {
 
             {/* Informasi Dropdown - hover biru tua */}
             <li 
-              className="relative cursor-pointer text-white/90 hover:text-white transition-colors"
+              className="relative cursor-pointer text-white/90 hover:text-white transition-colors flex items-center gap-1"
               onMouseEnter={() => setActiveDropdown('informasi')}
               onMouseLeave={() => setActiveDropdown(null)}
             >
-              {menuItems.informasi.label}
+              <span>{menuItems.informasi.label}</span>
+              <svg 
+                className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'informasi' ? 'rotate-180' : ''}`}
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
               {activeDropdown === 'informasi' && (
                 <div 
                   className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-50"
@@ -107,8 +143,12 @@ export default function Navbar() {
                 >
                   <div className="bg-[#6B9EDE]/95 backdrop-blur-md rounded-2xl py-4 px-6 shadow-xl w-max">
                     {menuItems.informasi.items.map((item, idx) => (
-                      <div key={idx} className="px-3 py-2.5 hover:bg-[#012267] transition-colors rounded-lg text-white text-sm font-rubik cursor-pointer whitespace-nowrap">
-                        {item}
+                      <div 
+                        key={idx} 
+                        className="px-3 py-2.5 hover:bg-[#012267] transition-colors rounded-lg text-white text-sm font-rubik cursor-pointer whitespace-nowrap"
+                        onClick={item.action || undefined}
+                      >
+                        {item.text}
                       </div>
                     ))}
                   </div>
@@ -118,11 +158,19 @@ export default function Navbar() {
 
             {/* Services Dropdown - hover biru tua */}
             <li 
-              className="relative cursor-pointer text-white/90 hover:text-white transition-colors"
+              className="relative cursor-pointer text-white/90 hover:text-white transition-colors flex items-center gap-1"
               onMouseEnter={() => setActiveDropdown('services')}
               onMouseLeave={() => setActiveDropdown(null)}
             >
-              {menuItems.services.label}
+              <span>{menuItems.services.label}</span>
+              <svg 
+                className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'services' ? 'rotate-180' : ''}`}
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
               {activeDropdown === 'services' && (
                 <div 
                   className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-50"
@@ -131,8 +179,12 @@ export default function Navbar() {
                 >
                   <div className="bg-[#6B9EDE]/95 backdrop-blur-md rounded-2xl py-4 px-6 shadow-xl w-max">
                     {menuItems.services.items.map((item, idx) => (
-                      <div key={idx} className="px-3 py-2.5 hover:bg-[#012267] transition-colors rounded-lg text-white text-sm font-rubik cursor-pointer whitespace-nowrap">
-                        {item}
+                      <div 
+                        key={idx} 
+                        className="px-3 py-2.5 hover:bg-[#012267] transition-colors rounded-lg text-white text-sm font-rubik cursor-pointer whitespace-nowrap"
+                        onClick={item.action || undefined}
+                      >
+                        {item.text}
                       </div>
                     ))}
                   </div>
