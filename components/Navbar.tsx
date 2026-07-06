@@ -3,9 +3,11 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import ChatbotPopup from "./ChatbotPopup";
 
 export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   
@@ -65,11 +67,21 @@ export default function Navbar() {
   };
 
   const scrollToTechnologySolution = () => {
-    scrollToSection('technology-solution');
+    // Jika di halaman lain, redirect ke home dulu dengan hash
+    if (pathname !== '/') {
+      router.push('/#technology-solution');
+    } else {
+      scrollToSection('technology-solution');
+    }
   };
 
   const scrollToThoughtLeadership = () => {
-    scrollToSection('thought-leadership');
+    // Jika di halaman lain, redirect ke home dulu dengan hash
+    if (pathname !== '/') {
+      router.push('/#thought-leadership');
+    } else {
+      scrollToSection('thought-leadership');
+    }
   };
 
   const menuItems = {
@@ -287,15 +299,23 @@ export default function Navbar() {
             }`}></span>
           </button>
           <div className={`w-px h-6 ${isLightPage ? 'bg-gray-300' : 'bg-white/20'}`}></div>
-          <Image
-            src="/mentahan-logo/rocketindinav.png"
-            alt="Rocket Icon"
-            width={32}
-            height={32}
-            className="object-contain cursor-pointer hover:scale-110 transition-transform"
-          />
+          <button
+            onClick={() => setIsChatbotOpen(true)}
+            className="relative"
+          >
+            <Image
+              src="/mentahan-logo/rocketindinav.png"
+              alt="Digitaro Chatbot"
+              width={32}
+              height={32}
+              className="object-contain cursor-pointer hover:scale-110 transition-transform"
+            />
+          </button>
         </div>
       </div>
+
+      {/* Chatbot Popup */}
+      <ChatbotPopup isOpen={isChatbotOpen} onClose={() => setIsChatbotOpen(false)} />
     </header>
   );
 }

@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import PartnershipLogos from "@/components/PartnershipLogos";
