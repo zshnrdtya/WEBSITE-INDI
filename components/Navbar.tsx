@@ -29,6 +29,14 @@ export default function Navbar() {
     scrollToSection('our-credential');
   };
 
+  const scrollToTechnologySolution = () => {
+    scrollToSection('technology-solution');
+  };
+
+  const scrollToThoughtLeadership = () => {
+    scrollToSection('thought-leadership');
+  };
+
   const menuItems = {
     knowledgeSharing: {
       label: "Knowledge Sharing",
@@ -44,14 +52,14 @@ export default function Navbar() {
         { text: "FAQ", action: null },
         { text: "INDUSTRI & PARTNERS", action: scrollToCredential },
         { text: "OUR EXPERIENCES", action: null },
-        { text: "THOUGHT LEADERSHIP", action: null },
+        { text: "THOUGHT LEADERSHIP", action: scrollToThoughtLeadership },
         { text: "Talent Incubation & Client Onboarding", action: null }
       ]
     },
     services: {
       label: "Services",
       items: [
-        { text: "TECHNOLOGY SOLUTIONS", action: null },
+        { text: "TECHNOLOGY SOLUTIONS", action: scrollToTechnologySolution },
         { text: "INNOVATION DEVELOPMENT", action: null },
         { text: "TALENT DEVELOPMENT", action: null }
       ]

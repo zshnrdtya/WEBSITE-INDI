@@ -8,6 +8,8 @@ import CoreMissionSection from "@/components/CoreMissionSection";
 import HowWeHelpSection from "@/components/HowWeHelpSection";
 import OurExperiencesSection from "@/components/OurExperiencesSection";
 import OurCredentialSection from "@/components/OurCredentialSection";
+import TechnologySolutionSection from "@/components/TechnologySolutionSection";
+import OurThoughtLeadershipSection from "@/components/OurThoughtLeadershipSection";
 
 export default function Home() {
   return (
@@ -35,6 +37,8 @@ export default function Home() {
       <HowWeHelpSection />
       <OurExperiencesSection />
       <OurCredentialSection />
+      <TechnologySolutionSection />
+      <OurThoughtLeadershipSection />
     </div>
   );
 }
