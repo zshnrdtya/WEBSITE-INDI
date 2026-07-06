@@ -51,6 +51,11 @@ export default function Navbar() {
     setActiveDropdown(null);
   };
 
+  const navigateToFaq = () => {
+    router.push('/faq');
+    setActiveDropdown(null);
+  };
+
   const navigateToHome = () => {
     router.push('/');
   };
@@ -67,7 +72,7 @@ export default function Navbar() {
     informasi: {
       label: "Informasi",
       items: [
-        { text: "FAQ", action: null },
+        { text: "FAQ", action: navigateToFaq },
         { text: "INDUSTRI & PARTNERS", action: scrollToCredential },
         { text: "OUR EXPERIENCES", action: null },
         { text: "THOUGHT LEADERSHIP", action: null },
@@ -85,7 +90,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="w-full px-12 py-6 z-50 flex-shrink-0 relative">
+    <header className="w-full px-12 py-6 z-[100] flex-shrink-0 relative">
       <div className="w-full flex items-center justify-between gap-4">
         {/* Logo with shadow for visibility on white bg */}
         <div 
@@ -145,7 +150,7 @@ export default function Navbar() {
               </svg>
               {activeDropdown === 'knowledgeSharing' && (
                 <div 
-                  className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-50"
+                  className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-[200]"
                   onMouseEnter={() => setActiveDropdown('knowledgeSharing')}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
@@ -185,7 +190,7 @@ export default function Navbar() {
               </svg>
               {activeDropdown === 'informasi' && (
                 <div 
-                  className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-50"
+                  className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-[200]"
                   onMouseEnter={() => setActiveDropdown('informasi')}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
@@ -225,7 +230,7 @@ export default function Navbar() {
               </svg>
               {activeDropdown === 'services' && (
                 <div 
-                  className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-50"
+                  className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-[200]"
                   onMouseEnter={() => setActiveDropdown('services')}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
