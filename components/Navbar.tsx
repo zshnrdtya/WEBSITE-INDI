@@ -55,6 +55,11 @@ export default function Navbar() {
     setActiveDropdown(null);
   };
 
+  const navigateToTalentDevelopment = () => {
+    router.push('/talent-development');
+    setActiveDropdown(null);
+  };
+
   const navigateToHome = () => {
     router.push('/');
   };
@@ -91,7 +96,7 @@ export default function Navbar() {
       items: [
         { text: "TECHNOLOGY SOLUTIONS", action: scrollToTechnologySolution },
         { text: "INNOVATION DEVELOPMENT", action: null },
-        { text: "TALENT DEVELOPMENT", action: null }
+        { text: "TALENT DEVELOPMENT", action: navigateToTalentDevelopment }
       ]
     }
   };
