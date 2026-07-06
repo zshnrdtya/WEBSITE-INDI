@@ -1,10 +1,17 @@
 'use client';
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const router = useRouter();
+  const pathname = usePathname();
+  
+  // Check if current page is tech-stack or other white background pages
+  const isLightPage = pathname === '/tech-stack';
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
@@ -22,11 +29,30 @@ export default function Navbar() {
   };
 
   const scrollToAbout = () => {
-    scrollToSection('about-indi');
+    // Jika di halaman lain, redirect ke home dulu dengan hash
+    if (pathname !== '/') {
+      router.push('/#about-indi');
+    } else {
+      scrollToSection('about-indi');
+    }
   };
 
   const scrollToCredential = () => {
-    scrollToSection('our-credential');
+    // Jika di halaman lain, redirect ke home dulu dengan hash
+    if (pathname !== '/') {
+      router.push('/#our-credential');
+    } else {
+      scrollToSection('our-credential');
+    }
+  };
+
+  const navigateToTechStack = () => {
+    router.push('/tech-stack');
+    setActiveDropdown(null);
+  };
+
+  const navigateToHome = () => {
+    router.push('/');
   };
 
   const menuItems = {
@@ -34,7 +60,7 @@ export default function Navbar() {
       label: "Knowledge Sharing",
       items: [
         { text: "INSIGHTS", action: null },
-        { text: "TECH STACK", action: null },
+        { text: "TECH STACK", action: navigateToTechStack },
         { text: "ACHIEVEMENT & CERTIFICATION", action: null }
       ]
     },
@@ -61,8 +87,12 @@ export default function Navbar() {
   return (
     <header className="w-full px-12 py-6 z-50 flex-shrink-0 relative">
       <div className="w-full flex items-center justify-between gap-4">
-        {/* Logo */}
-        <div className="flex-shrink-0 cursor-pointer">
+        {/* Logo with shadow for visibility on white bg */}
+        <div 
+          className="flex-shrink-0 cursor-pointer"
+          onClick={navigateToHome}
+          style={isLightPage ? { filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.15))' } : {}}
+        >
           <Image
             src="/mentahan-logo/logoindi.png"
             alt="INDI Technology Logo"
@@ -73,20 +103,34 @@ export default function Navbar() {
         </div>
 
         {/* Navigation Menu */}
-        <div className="flex-1 max-w-[850px] h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/5 flex items-center justify-center px-8 shadow-inner">
-          <ul className="flex items-center justify-around w-full font-rubik text-white/90 text-[15px] tracking-wide gap-6">
+        <div className={`flex-1 max-w-[850px] h-14 rounded-full backdrop-blur-md border flex items-center justify-center px-8 shadow-inner ${
+          isLightPage 
+            ? 'bg-white/80 border-gray-200' 
+            : 'bg-white/10 border-white/5'
+        }`}>
+          <ul className={`flex items-center justify-around w-full font-rubik text-[15px] tracking-wide gap-6 ${
+            isLightPage ? 'text-gray-800' : 'text-white/90'
+          }`}>
             
             {/* Company - Click to scroll to About */}
             <li 
-              className="cursor-pointer text-white/90 hover:text-white transition-colors font-medium"
+              className={`cursor-pointer transition-colors font-medium ${
+                isLightPage 
+                  ? 'text-gray-800 hover:text-[#012267]' 
+                  : 'text-white/90 hover:text-white'
+              }`}
               onClick={scrollToAbout}
             >
               Company
             </li>
 
-            {/* Knowledge Sharing Dropdown - seperti design */}
+            {/* Knowledge Sharing Dropdown */}
             <li 
-              className="relative cursor-pointer text-white/90 hover:text-white transition-colors flex items-center gap-1"
+              className={`relative cursor-pointer transition-colors flex items-center gap-1 ${
+                isLightPage 
+                  ? 'text-gray-800 hover:text-[#012267]' 
+                  : 'text-white/90 hover:text-white'
+              }`}
               onMouseEnter={() => setActiveDropdown('knowledgeSharing')}
               onMouseLeave={() => setActiveDropdown(null)}
             >
@@ -120,9 +164,13 @@ export default function Navbar() {
               )}
             </li>
 
-            {/* Informasi Dropdown - hover biru tua */}
+            {/* Informasi Dropdown */}
             <li 
-              className="relative cursor-pointer text-white/90 hover:text-white transition-colors flex items-center gap-1"
+              className={`relative cursor-pointer transition-colors flex items-center gap-1 ${
+                isLightPage 
+                  ? 'text-gray-800 hover:text-[#012267]' 
+                  : 'text-white/90 hover:text-white'
+              }`}
               onMouseEnter={() => setActiveDropdown('informasi')}
               onMouseLeave={() => setActiveDropdown(null)}
             >
@@ -156,9 +204,13 @@ export default function Navbar() {
               )}
             </li>
 
-            {/* Services Dropdown - hover biru tua */}
+            {/* Services Dropdown */}
             <li 
-              className="relative cursor-pointer text-white/90 hover:text-white transition-colors flex items-center gap-1"
+              className={`relative cursor-pointer transition-colors flex items-center gap-1 ${
+                isLightPage 
+                  ? 'text-gray-800 hover:text-[#012267]' 
+                  : 'text-white/90 hover:text-white'
+              }`}
               onMouseEnter={() => setActiveDropdown('services')}
               onMouseLeave={() => setActiveDropdown(null)}
             >
@@ -195,13 +247,29 @@ export default function Navbar() {
         </div>
 
         {/* Right Side Menu */}
-        <div className="flex items-center gap-4 bg-white/10 backdrop-blur-md border border-white/5 rounded-full px-5 py-2 h-14">
+        <div className={`flex items-center gap-4 backdrop-blur-md border rounded-full px-5 py-2 h-14 ${
+          isLightPage 
+            ? 'bg-white/80 border-gray-200' 
+            : 'bg-white/10 border-white/5'
+        }`}>
           <button className="flex flex-col gap-1.5 justify-center items-center w-6 cursor-pointer group">
-            <span className="block w-6 h-0.5 bg-white group-hover:bg-cyan-300 transition-colors"></span>
-            <span className="block w-6 h-0.5 bg-white group-hover:bg-cyan-300 transition-colors"></span>
-            <span className="block w-6 h-0.5 bg-white group-hover:bg-cyan-300 transition-colors"></span>
+            <span className={`block w-6 h-0.5 transition-colors ${
+              isLightPage 
+                ? 'bg-gray-800 group-hover:bg-[#012267]' 
+                : 'bg-white group-hover:bg-cyan-300'
+            }`}></span>
+            <span className={`block w-6 h-0.5 transition-colors ${
+              isLightPage 
+                ? 'bg-gray-800 group-hover:bg-[#012267]' 
+                : 'bg-white group-hover:bg-cyan-300'
+            }`}></span>
+            <span className={`block w-6 h-0.5 transition-colors ${
+              isLightPage 
+                ? 'bg-gray-800 group-hover:bg-[#012267]' 
+                : 'bg-white group-hover:bg-cyan-300'
+            }`}></span>
           </button>
-          <div className="w-px h-6 bg-white/20"></div>
+          <div className={`w-px h-6 ${isLightPage ? 'bg-gray-300' : 'bg-white/20'}`}></div>
           <Image
             src="/mentahan-logo/rocketindinav.png"
             alt="Rocket Icon"
