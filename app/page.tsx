@@ -11,6 +11,7 @@ import HowWeHelpSection from "@/components/HowWeHelpSection";
 import OurExperiencesSection from "@/components/OurExperiencesSection";
 import OurCredentialSection from "@/components/OurCredentialSection";
 import TechnologySolutionSection from "@/components/TechnologySolutionSection";
+import OurPortfolioSection from "@/components/OurPortfolioSection";
 import OurThoughtLeadershipSection from "@/components/OurThoughtLeadershipSection";
 
 export default function Home() {
@@ -64,6 +65,7 @@ export default function Home() {
       <OurCredentialSection />
       <TechnologySolutionSection />
       <OurThoughtLeadershipSection />
+      <OurPortfolioSection />
     </div>
   );
 }

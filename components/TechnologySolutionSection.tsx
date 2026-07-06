@@ -13,17 +13,17 @@ export default function TechnologySolutionSection() {
       title: "TOSTEM"
     },
     {
-      src: "/technology-solution/image 25.png",
+      src: "/technology-solution/image 27.png",
       alt: "Indonesia Forum",
       title: "Indonesia Forum"
     },
     {
-      src: "/technology-solution/image 26.png",
+      src: "/technology-solution/image 25.png",
       alt: "Amalia",
       title: "Amalia"
     },
     {
-      src: "/technology-solution/image 27.png",
+      src: "/technology-solution/image 26.png",
       alt: "Mobile Solution 1",
       title: "Mobile Solution"
     },
